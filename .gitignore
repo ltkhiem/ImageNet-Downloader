@@ -1,0 +1,7 @@
+database/
+ImageNet/
+temp/
+*.log
+__*__
+.DS_Store
+.idea/

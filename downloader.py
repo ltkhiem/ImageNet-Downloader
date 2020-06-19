@@ -74,7 +74,6 @@ def get_image(image_id):
             with open(image_path, 'wb') as f:
                 f.write(response.content)
                 with lock:
-                    cnt += 1
                     with open(osp.join(TEMP_DIR, 'downloaded.txt'), 'a') as ff:
                         ff.write(image_id + '\n')
         else:

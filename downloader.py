@@ -48,11 +48,10 @@ def check_header(header):
         return False
 
 
-def get_extension(url):
-    url = url.split('/')[-1]  # Get the last part of url
-    url = url.split('?')[0]  # Remove url's params
-    url = url.split('&')[0]  # Remove page settings
-    ext = url.split('.')[-1]
+def get_extension(header):
+    ext = header['content-type'].lower().split('/')[-1] 
+    if ext == 'jpeg':
+        ext = 'jpg'
     return ext
 
 
@@ -69,7 +68,7 @@ def get_image(image_id):
         response = requests.get(url, timeout=10)
         if check_header(response.headers):
             image_folder = image_id.split('_')[0]
-            image_extension = get_extension(url)
+            image_extension = get_extension(response.headers)
             image_path = osp.join(args.output_dir, image_folder, "{}.{}".format(image_id, image_extension))
             with open(image_path, 'wb') as f:
                 f.write(response.content)
